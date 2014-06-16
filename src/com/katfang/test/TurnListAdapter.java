@@ -31,7 +31,6 @@ public class TurnListAdapter extends FirebaseListAdapter<Turn> {
     }
 
     private void populatePicture(View view, Turn turn) {
-        System.out.println("Picture for turn " + turn.getType() + turn.getContent().substring(0,4) + view + " " + turn);
         ImageView image = (ImageView) view.findViewById(R.id.turnPicture);
         image.setVisibility(ImageView.VISIBLE);
         String encoded = turn.getContent();
@@ -43,7 +42,6 @@ public class TurnListAdapter extends FirebaseListAdapter<Turn> {
     }
 
     private void populatePhrase(View view, Turn turn) {
-        System.out.println("Phrase for turn " + turn.getType() + turn.getContent().substring(0,4) + view + " " + turn);
         TextView text = (TextView) view.findViewById(R.id.turnPhrase);
         text.setVisibility(TextView.VISIBLE);
         String content = turn.getContent();

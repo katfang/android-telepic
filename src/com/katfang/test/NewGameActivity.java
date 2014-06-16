@@ -56,9 +56,13 @@ public class NewGameActivity extends Activity {
             Game g = new Game(username);
             g.addTurn(new Turn(username, input, "phrase"));
 
-            ref.push().setValue(g, rand.nextDouble());
+            Firebase gameRef = ref.push();
+            gameRef.setValue(g, rand.nextDouble());
 
-            Intent i = new Intent(getApplicationContext(), LandingActivity.class);
+            String gameName = gameRef.getName();
+
+            Intent i = new Intent(getApplicationContext(), ViewActivity.class);
+            i.putExtra("name", gameName);
             startActivity(i);
         }
     }

@@ -33,9 +33,9 @@ public class ViewActivity extends ListActivity {
         setContentView(R.layout.view_layout);
 
         Intent i = getIntent();
-        String gameId = i.getStringExtra("gameId");
+        String gameName = i.getStringExtra("name");
 
-        ref = new Firebase(Data.FIREBASE_URL + "/games/" + gameId);
+        ref = new Firebase(Data.FIREBASE_URL + "/games/" + gameName);
     }
 
     public void onStart() {

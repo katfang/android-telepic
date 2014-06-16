@@ -23,7 +23,7 @@ public class JoinActivity extends Activity {
     private Random rand;
     private Map<String, Game> games;
     private Game game;
-    private String gameId;
+    private String gameName;
     private double gamePriority;
     private String username;
 
@@ -116,7 +116,7 @@ public class JoinActivity extends Activity {
 
     private void setGame(DataSnapshot d) {
         game = d.getValue(Game.class);
-        gameId = d.getName();
+        gameName = d.getName();
         gamePriority = (Double) d.getPriority();
     }
 
@@ -156,10 +156,10 @@ public class JoinActivity extends Activity {
         Turn t = new Turn(username, phrase, Turn.PHRASE);
         game.addTurn(t);
 
-        ref.child(gameId).setValue(game, gamePriority);
+        ref.child(gameName).setValue(game, gamePriority);
 
         Intent i = new Intent(getApplicationContext(), ViewActivity.class);
-        i.putExtra("gameId", gameId);
+        i.putExtra("name", gameName);
         startActivity(i);
     }
 
@@ -185,10 +185,10 @@ public class JoinActivity extends Activity {
         Turn t = new Turn(username, uri,Turn.PICTURE);
         game.addTurn(t);
 
-        ref.child(gameId).setValue(game, gamePriority);
+        ref.child(gameName).setValue(game, gamePriority);
 
         Intent i = new Intent(getApplicationContext(), ViewActivity.class);
-        i.putExtra("gameId", gameId);
+        i.putExtra("name", gameName);
         startActivity(i);
     }
 }

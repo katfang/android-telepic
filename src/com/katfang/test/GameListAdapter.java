@@ -34,7 +34,7 @@ public class GameListAdapter extends FirebaseListAdapter<Game> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(activity.getApplicationContext(), ViewActivity.class);
-                i.putExtra("gameId", modelName);
+                i.putExtra("name", modelName);
                 activity.startActivity(i);
             }
         });
