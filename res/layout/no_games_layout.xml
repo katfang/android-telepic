@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+        >
+    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
+                  android:layout_height="wrap_content" android:id="@+id/linearLayout">
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="New"
+                android:id="@+id/newButton" android:layout_weight="1"/>
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Join"
+                android:id="@+id/joinButton" android:layout_weight="1"/>
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="List"
+                android:id="@+id/listButton" android:layout_weight="1"/>
+    </LinearLayout>
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="There really are no games. Why don't you start a new one?"
+            android:id="@+id/noGamesText"/>
+</LinearLayout>
+

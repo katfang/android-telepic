@@ -2,8 +2,11 @@ package com.katfang.test;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.firebase.client.*;
 
@@ -23,7 +26,6 @@ public class JoinActivity extends Activity {
     private String gameId;
     private double gamePriority;
     private String username;
-    private double pri;
 
 //    private ChildEventListener listener;
 
@@ -35,25 +37,7 @@ public class JoinActivity extends Activity {
         username = ((Data) getApplicationContext()).getUsername();
 
         games = new HashMap<String, Game>();
-        pri = rand.nextDouble();
-        ref.startAt(pri).limit(1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("Hello " + pri + " " + dataSnapshot.getChildrenCount());
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    System.out.println("His");
-                    game = d.getValue(Game.class);
-                    gameId = d.getName();
-                    gamePriority = (Double) d.getPriority();
-                    setLayout();
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError error) {
-
-            }
-        });
+        pickGame();
 
 //        listener = ref.addChildEventListener(new ChildEventListener() {
 //            @Override
@@ -87,11 +71,53 @@ public class JoinActivity extends Activity {
     }
 
     private void pickGame() {
-        if (game == null) {
-            Object[] gameArray = games.values().toArray();
-            game = (Game) gameArray[rand.nextInt(gameArray.length)];
-        }
-        setLayout();
+        ref.startAt(rand.nextDouble()).limit(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    getFirstGame();
+                    return;
+                }
+
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    setGame(d);
+                    setLayout();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+
+            }
+        });
+    }
+
+    private void getFirstGame() {
+        ref.startAt(0).limit(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    setNoGamesLayout();
+                    return;
+                }
+
+                for (DataSnapshot d : dataSnapshot.getChildren()) {
+                    setGame(d);
+                    setLayout();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+
+            }
+        });
+    }
+
+    private void setGame(DataSnapshot d) {
+        game = d.getValue(Game.class);
+        gameId = d.getName();
+        gamePriority = (Double) d.getPriority();
     }
 
     private void setLayout() {
@@ -102,15 +128,46 @@ public class JoinActivity extends Activity {
         }
     }
 
+    private void setNoGamesLayout() {
+        setContentView(R.layout.no_games_layout);
+    }
+
     private void setPhraseLayout() {
         setContentView(R.layout.phrase_layout);
+        ImageView image = (ImageView) findViewById(R.id.phrasePic);
+
+        Turn t = game.getTurns().get(game.getLast());
+        String encoded = t.getContent();
+        byte[] byteArray = Base64.decode(encoded, Base64.DEFAULT);
+        image.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+
+        findViewById(R.id.phraseDoneButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendPhrase();
+            }
+        });
+    }
+
+    private void sendPhrase() {
+        TextView view = (TextView) findViewById(R.id.phraseText);
+        String phrase = view.getText().toString();
+
+        Turn t = new Turn(username, phrase, Turn.PHRASE);
+        game.addTurn(t);
+
+        ref.child(gameId).setValue(game, gamePriority);
+
+        Intent i = new Intent(getApplicationContext(), ViewActivity.class);
+        i.putExtra("gameId", gameId);
+        startActivity(i);
     }
 
     private void setPictureLayout() {
         setContentView(R.layout.picture_layout);
-        TextView phraseText = ((TextView) findViewById(R.id.picPhraseText));
+        TextView phraseText = (TextView) findViewById(R.id.picPhraseText);
 
-        Turn t = game.getTurns().get(0);
+        Turn t = game.getTurns().get(game.getLast());
         phraseText.setText(t.getContent());
 
         findViewById(R.id.picDoneButton).setOnClickListener(new View.OnClickListener() {

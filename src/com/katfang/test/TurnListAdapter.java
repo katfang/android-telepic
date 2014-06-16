@@ -1,10 +1,12 @@
 package com.katfang.test;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Base64;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,30 +17,40 @@ import com.firebase.client.Query;
  */
 public class TurnListAdapter extends FirebaseListAdapter<Turn> {
 
-    private Activity activity;
-
     public TurnListAdapter(Query ref, Activity activity, int layout) {
         super(ref, Turn.class, layout, activity);
-        this.activity = activity;
     }
 
     @Override
-    protected void populateView(View view, Turn turn) {
+    protected void populateView(View view, Turn turn, String modelName) {
         if (Turn.PICTURE.equals(turn.getType())) {
-            String encoded = turn.getContent();
-            byte[] byteArray = Base64.decode(encoded, Base64.DEFAULT);
-            ImageView image = new ImageView(activity);
-            image.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
-            ((LinearLayout) view).addView(image);
+            populatePicture(view, turn);
         } else {
-            String content = turn.getContent();
-            TextView text = new TextView(activity);
-            text.setTextColor(0xFF000000);
-            text.setText(content);
-            ((LinearLayout) view).addView(text);
+            populatePhrase(view, turn);
         }
+    }
 
-        String creator = turn.getCreator();
-        view.invalidate();
+    private void populatePicture(View view, Turn turn) {
+        System.out.println("Picture for turn " + turn.getType() + turn.getContent().substring(0,4) + view + " " + turn);
+        ImageView image = (ImageView) view.findViewById(R.id.turnPicture);
+        image.setVisibility(ImageView.VISIBLE);
+        String encoded = turn.getContent();
+        byte[] byteArray = Base64.decode(encoded, Base64.DEFAULT);
+        image.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+
+        TextView text = (TextView) view.findViewById(R.id.turnPhrase);
+        text.setVisibility(TextView.GONE);
+    }
+
+    private void populatePhrase(View view, Turn turn) {
+        System.out.println("Phrase for turn " + turn.getType() + turn.getContent().substring(0,4) + view + " " + turn);
+        TextView text = (TextView) view.findViewById(R.id.turnPhrase);
+        text.setVisibility(TextView.VISIBLE);
+        String content = turn.getContent();
+        text.setTextColor(0xFF000000);
+        text.setText(content);
+
+        ImageView image = (ImageView) view.findViewById(R.id.turnPicture);
+        image.setVisibility(ImageView.GONE);
     }
 }
