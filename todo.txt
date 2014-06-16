@@ -6,6 +6,7 @@
 * Layout: make white background default
 * Image: make as strokes?
 * DrawingView: @TODO Sets w, h to 1 if it is 0 to fix the fact it needs to be > 0 and not null.
+* Push turns rather than create arraylist
 
 * There no way to get the name from the model?
 * Join: Lock if someone is adding: tx to make priority -1
