@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceMedium" android:text="Welcome to Telephone Pictionary!"
+              android:id="@+id/textView" android:layout_gravity="center_horizontal" android:textAlignment="center"
+              android:textSize="45dp" android:paddingBottom="40dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="What's your name?"
+            android:id="@+id/askNameText" android:layout_gravity="center_horizontal" android:textAlignment="center"
+            android:textSize="30dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/usernameText" android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"/>
+        <ImageButton android:id="@+id/usernameGoButton" android:layout_height="wrap_content"
+                     android:layout_width="wrap_content" android:src="@android:drawable/ic_menu_send"/>
+    </LinearLayout>
+</LinearLayout>

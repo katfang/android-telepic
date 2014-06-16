@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.katfang.test"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="19"/>
+    <application android:name="Data" android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:debuggable="true">
+        <activity android:name=".LandingActivity"
+                  android:label="Telephone Pictionary">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".UsernameActivity"
+                  android:label="Set Username">
+        </activity>
+        <activity android:name=".NewGameActivity"
+                  android:label="Start New Game">
+        </activity>
+        <activity android:name=".JoinActivity"
+                  android:label="Join a Game">
+        </activity>
+        <activity android:name=".ListGamesActivity"
+                  android:label="List your games">
+        </activity>
+        <activity android:name=".ViewActivity"
+                  android:label="View one game">
+        </activity>
+    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>
