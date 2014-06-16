@@ -13,20 +13,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".UsernameActivity"
-                  android:label="Set Username">
-        </activity>
+                  android:label="Set Username" />
         <activity android:name=".NewGameActivity"
-                  android:label="Start New Game">
-        </activity>
+                  android:label="Start New Game" />
         <activity android:name=".JoinActivity"
-                  android:label="Join a Game">
-        </activity>
+                  android:label="Join a Game" />
         <activity android:name=".ListGamesActivity"
-                  android:label="List your games">
-        </activity>
+                  android:label="List your games" />
         <activity android:name=".ViewActivity"
-                  android:label="View one game">
-        </activity>
+                  android:label="View one game" />
+        <activity android:name=".LoginActivity"
+                  android:label="Login!" />
+        <activity android:name=".AuthenticateActivity"
+                  android:label="Authenticate!" />
+        <activity android:name=".CreateUserActivity"
+                  android:label="Create Account!" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

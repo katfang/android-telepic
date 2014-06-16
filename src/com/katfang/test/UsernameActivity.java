@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class UsernameActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.username_layout);
+        setContentView(R.layout.set_username);
 
         EditText usernameText = (EditText)findViewById(R.id.usernameText);
         usernameText.setOnEditorActionListener(new TextView.OnEditorActionListener() {

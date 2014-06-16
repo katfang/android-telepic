@@ -39,36 +39,6 @@ public class JoinActivity extends Activity {
 
         games = new HashMap<String, Game>();
         pickGame();
-
-//        listener = ref.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                Game g = dataSnapshot.getValue(Game.class);
-//                games.put(dataSnapshot.getName(), g);
-//                pickGame();
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                Game g = dataSnapshot.getValue(Game.class);
-//                games.put(dataSnapshot    .getName(), g);
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                games.remove(dataSnapshot.getName());
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//                // No-op
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError error) {
-//                // No-op
-//            }
-//        });
     }
 
     private void pickGame() {
@@ -114,7 +84,7 @@ public class JoinActivity extends Activity {
             }
         });
     }
-
+    
     private void setGame(DataSnapshot d) {
         game = d.getValue(Game.class);
         gameName = d.getName();
@@ -130,7 +100,8 @@ public class JoinActivity extends Activity {
     }
 
     private void setNoGamesLayout() {
-        setContentView(R.layout.no_games_layout);
+        setContentView(R.layout.no_games_to_join);
+        setButtons();
     }
 
     private void setButtons() {
@@ -156,7 +127,7 @@ public class JoinActivity extends Activity {
     }
 
     private void setPhraseLayout() {
-        setContentView(R.layout.phrase_layout);
+        setContentView(R.layout.add_phrase);
         ImageView image = (ImageView) findViewById(R.id.phrasePic);
 
         Turn t = game.getTurns().get(game.getLast());
@@ -187,7 +158,7 @@ public class JoinActivity extends Activity {
     }
 
     private void setPictureLayout() {
-        setContentView(R.layout.picture_layout);
+        setContentView(R.layout.add_picture);
         TextView phraseText = (TextView) findViewById(R.id.picPhraseText);
 
         Turn t = game.getTurns().get(game.getLast());

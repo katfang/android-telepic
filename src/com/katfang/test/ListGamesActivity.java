@@ -1,6 +1,5 @@
 package com.katfang.test;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,7 @@ public class ListGamesActivity extends ListActivity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_layout);
+        setContentView(R.layout.list);
 
         ref = new Firebase(Data.FIREBASE_URL + "/games");
 

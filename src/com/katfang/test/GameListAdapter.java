@@ -22,9 +22,7 @@ public class GameListAdapter extends FirebaseListAdapter<Game> {
 
     @Override
     protected void populateView(View view, Game game, final String modelName) {
-        String creator = game.getCreator();
-        TextView creatorText = (TextView)view.findViewById(R.id.gliCreator);
-        creatorText.setText(creator + ": ");
+        // setCreator(view, game);
 
         String firstPhrase = game.getTurns().get(0).getContent();
 
@@ -38,5 +36,11 @@ public class GameListAdapter extends FirebaseListAdapter<Game> {
                 activity.startActivity(i);
             }
         });
+    }
+
+    private void setCreator(View view, Game game) {
+        String creator = game.getCreator();
+        TextView creatorText = (TextView)view.findViewById(R.id.gliCreator);
+        creatorText.setText(creator + ": ");
     }
 }

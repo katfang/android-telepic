@@ -23,7 +23,7 @@ public class NewGameActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_layout);
+        setContentView(R.layout.new_game);
 
         ref = new Firebase(Data.FIREBASE_URL + "/games");
         rand = new Random();
