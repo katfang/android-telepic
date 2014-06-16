@@ -43,6 +43,14 @@ public class DrawingView extends View {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        // @TODO This is a total hack.
+        if (w == 0) {
+            w = 1;
+        }
+        if (h == 0) {
+            h = 1;
+        }
+
         super.onSizeChanged(w, h, oldW, oldH);
         bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
