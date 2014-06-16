@@ -94,4 +94,8 @@ public class DrawingView extends View {
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         return encoded;
     }
+
+    public void recycleBitmap() {
+        bitmap.recycle();
+    }
 }

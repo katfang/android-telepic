@@ -191,6 +191,8 @@ public class JoinActivity extends Activity {
     private void sendPhrase() {
         TextView view = (TextView) findViewById(R.id.phraseText);
         String phrase = view.getText().toString();
+        ImageView image = (ImageView) findViewById(R.id.phrasePic);
+        image.setImageDrawable(null);
 
         Turn t = new Turn(username, phrase, Turn.PHRASE);
         game.addTurn(t);
@@ -220,6 +222,7 @@ public class JoinActivity extends Activity {
     private void sendPicture() {
         DrawingView view = (DrawingView) findViewById(R.id.drawing);
         String uri = view.getImageUri();
+        view.recycleBitmap();
 
         Turn t = new Turn(username, uri,Turn.PICTURE);
         game.addTurn(t);

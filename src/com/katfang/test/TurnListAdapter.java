@@ -12,13 +12,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.firebase.client.Query;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by katfang on 6/15/14.
  */
 public class TurnListAdapter extends FirebaseListAdapter<Turn> {
 
+    Set<ImageView> images;
+
     public TurnListAdapter(Query ref, Activity activity, int layout) {
         super(ref, Turn.class, layout, activity);
+        images = new HashSet<ImageView>();
     }
 
     @Override
@@ -32,10 +38,12 @@ public class TurnListAdapter extends FirebaseListAdapter<Turn> {
 
     private void populatePicture(View view, Turn turn) {
         ImageView image = (ImageView) view.findViewById(R.id.turnPicture);
+        image.setImageDrawable(null);
         image.setVisibility(ImageView.VISIBLE);
         String encoded = turn.getContent();
         byte[] byteArray = Base64.decode(encoded, Base64.DEFAULT);
         image.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+        images.add(image);
 
         TextView text = (TextView) view.findViewById(R.id.turnPhrase);
         text.setVisibility(TextView.GONE);
@@ -50,5 +58,12 @@ public class TurnListAdapter extends FirebaseListAdapter<Turn> {
 
         ImageView image = (ImageView) view.findViewById(R.id.turnPicture);
         image.setVisibility(ImageView.GONE);
+        image.setImageDrawable(null);
+    }
+
+    public void removeImages() {
+        for (ImageView image : images) {
+            image.setImageDrawable(null);
+        }
     }
 }

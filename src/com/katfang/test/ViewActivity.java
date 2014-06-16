@@ -56,4 +56,9 @@ public class ViewActivity extends ListActivity {
         turnListAdapter = new TurnListAdapter(ref.child("/turns").limit(15), this, R.layout.turn_item);
         listView.setAdapter(turnListAdapter);
     }
+
+    public void onStop() {
+        super.onStop();
+        turnListAdapter.removeImages();
+    }
 }
