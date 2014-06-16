@@ -1,0 +1,5 @@
+.idea
+out
+proguard-project.txt
+project.properties
+test-android.iml
