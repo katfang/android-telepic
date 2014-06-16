@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Game {
 
+    final public static String LOCK = "lock";
     private String creator;
     private String next;
     private int last;
@@ -24,6 +25,10 @@ public class Game {
         turns = new ArrayList<Turn>();
         this.next = "picture";
         this.last = -1;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
     }
 
     public String getCreator() {

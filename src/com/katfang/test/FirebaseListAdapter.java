@@ -93,7 +93,6 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 String modelName = dataSnapshot.getName();
                 T oldModel = modelNames.get(modelName);
                 T newModel = dataSnapshot.getValue(FirebaseListAdapter.this.modelClass);
-                System.out.println("oldModel " + oldModel);
                 int index = models.indexOf(oldModel);
 
                 if (index > 0) {
@@ -125,8 +124,12 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 T oldModel = modelNames.get(modelName);
                 T newModel = dataSnapshot.getValue(FirebaseListAdapter.this.modelClass);
                 int index = models.indexOf(oldModel);
-                models.remove(index);
-                names.remove(index);
+
+                if (index >= 0) {
+                    models.remove(index);
+                    names.remove(index);
+                }
+
                 if (previousChildName == null) {
                     models.add(0, newModel);
                     names.add(0, modelName);

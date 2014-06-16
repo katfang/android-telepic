@@ -21,10 +21,12 @@ import java.util.Random;
 public class JoinActivity extends Activity {
 
     private Firebase ref;
+    private Firebase gameRef;
     private Random rand;
     private Map<String, Game> games;
     private Game game;
     private String gameName;
+    private String gameNext;
     private double gamePriority;
     private String username;
 
@@ -41,6 +43,11 @@ public class JoinActivity extends Activity {
         pickGame();
     }
 
+    public void onStop() {
+        super.onStop();
+        unlockGame();
+    }
+
     private void pickGame() {
         ref.startAt(rand.nextDouble()).limit(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -51,7 +58,7 @@ public class JoinActivity extends Activity {
                 }
 
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    setGame(d);
+                    lockGame(d);
                     setLayout();
                 }
             }
@@ -73,7 +80,7 @@ public class JoinActivity extends Activity {
                 }
 
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    setGame(d);
+                    lockGame(d);
                     setLayout();
                 }
             }
@@ -84,11 +91,49 @@ public class JoinActivity extends Activity {
             }
         });
     }
-    
-    private void setGame(DataSnapshot d) {
+
+    private void lockGame(DataSnapshot d) {
+        setGame(d);
+
+        gameRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData data) {
+                setGame(data);
+                gamePriority = (Double) data.getPriority();
+
+                if ((Double) data.getPriority() >= 0) {
+                    data.setPriority(-1);
+                    return Transaction.success(data);
+                } else {
+                    return Transaction.abort();
+                }
+            }
+
+            @Override
+            public void onComplete(FirebaseError error, boolean b, DataSnapshot dataSnapshot) {
+                if (error == null && b) {
+                    setGame(dataSnapshot);
+                } else {
+                    pickGame();
+                }
+            }
+        });
+    }
+
+    private void unlockGame() {
+        gameRef.setPriority(gamePriority);
+    }
+
+    private void setGame(MutableData d) {
         game = d.getValue(Game.class);
         gameName = d.getName();
-        gamePriority = (Double) d.getPriority();
+
+    }
+    
+    private void setGame(DataSnapshot d) {
+        gameRef = d.getRef();
+        game = d.getValue(Game.class);
+        gameName = d.getName();
     }
 
     private void setLayout() {
