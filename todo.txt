@@ -1,7 +1,5 @@
 * Sec: add users?
 * Sec: make each turn immutable?
-* Join: Lock if someone is adding
-  Remove priority (make it null) so others can't startAt priority?
 * Don't join games you've already contributed to
 * Rename join to play?
 * List: order by last update?
@@ -10,6 +8,7 @@
 * DrawingView: @TODO Sets w, h to 1 if it is 0 to fix the fact it needs to be > 0 and not null.
 
 * There no way to get the name from the model?
+* Join: Lock if someone is adding: tx to make priority -1
 
 
 
@@ -18,3 +17,26 @@ security:
   can view any game
   cannot 
   can write (not edit) any game /game/#/state/#
+
+If:
+{
+    "rules": {
+        "games": {
+          ".read": true,
+          "$other": {
+	          ".write": true
+	      }
+        }
+    }
+}
+Then can't read turns
+
+Feedback:
+* being able to update from the model!
+  Ended up storing the model name grabbed from datasnapshot
+  maybe should have stored the datasnapshot?
+* Setting the value seems to oblierate the priority :(
+* Doc page for Java Simple Login -- code suggests createUser also logs user in. But the line below says it doesn't.
+  https://www.firebase.com/docs/security/simple-login-java-email-password.html
+* Security rules to only push new data, not edit old data
+  

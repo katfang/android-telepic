@@ -1,4 +1,5 @@
 .idea
+gen
 out
 proguard-project.txt
 project.properties
