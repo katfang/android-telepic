@@ -2,7 +2,9 @@ package com.katfang.test;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import com.firebase.client.Firebase;
 
@@ -19,6 +21,30 @@ public class ListGamesActivity extends ListActivity {
         setContentView(R.layout.view_layout);
 
         ref = new Firebase(Data.FIREBASE_URL + "/games");
+
+        findViewById(R.id.viewNewButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), NewGameActivity.class);
+                startActivity(i);
+            }
+        });
+
+        findViewById(R.id.viewJoinButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), JoinActivity.class);
+                startActivity(i);
+            }
+        });
+
+        findViewById(R.id.viewListButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListGamesActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void onStart() {

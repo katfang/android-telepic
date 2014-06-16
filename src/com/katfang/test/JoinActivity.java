@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.firebase.client.*;
@@ -130,6 +131,28 @@ public class JoinActivity extends Activity {
 
     private void setNoGamesLayout() {
         setContentView(R.layout.no_games_layout);
+    }
+
+    private void setButtons() {
+        findViewById(R.id.ngNewButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), NewGameActivity.class);
+                startActivity(i);
+            }
+        });
+
+        Button joinButton = (Button) findViewById(R.id.ngJoinButton);
+        joinButton.setEnabled(false);
+        joinButton.setClickable(false);
+
+        findViewById(R.id.ngListButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListGamesActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void setPhraseLayout() {

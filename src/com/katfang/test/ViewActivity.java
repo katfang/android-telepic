@@ -36,6 +36,30 @@ public class ViewActivity extends ListActivity {
         String gameName = i.getStringExtra("name");
 
         ref = new Firebase(Data.FIREBASE_URL + "/games/" + gameName);
+
+        findViewById(R.id.viewNewButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), NewGameActivity.class);
+                startActivity(i);
+            }
+        });
+
+        findViewById(R.id.viewJoinButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), JoinActivity.class);
+                startActivity(i);
+            }
+        });
+
+        findViewById(R.id.viewListButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ListGamesActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void onStart() {

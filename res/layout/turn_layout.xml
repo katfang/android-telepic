@@ -4,7 +4,7 @@
                   android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:id="@+id/linearLayout">
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:id="@+id/turnPhrase"/>
+                  android:id="@+id/turnPhrase" android:textSize="20dp"/>
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                    android:id="@+id/turnPicture"/>
 </LinearLayout>
